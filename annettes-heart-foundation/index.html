@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Annette's Heart Foundation for Children supports children with heart conditions and their families throughout Sierra Leone and West Africa." />
+  <title>Annette's Heart Foundation for Children</title>
+  <link rel="icon" type="image/png" href="annettes-heart-logo.png" />
+  <style>
+    :root {
+      --wine: #6f1728;
+      --wine-deep: #3c101b;
+      --red: #d9283e;
+      --coral: #f16668;
+      --blush: #fce4df;
+      --cream: #fff9f1;
+      --white: #fff;
+      --ink: #1f2928;
+      --muted: #66716e;
+      --teal: #276e63;
+      --gold: #e9b45d;
+      --line: rgba(60, 16, 27, .12);
+      --shadow: 0 24px 70px rgba(72, 25, 35, .14);
+      --radius: 30px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .section { padding: 110px 0; }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--red);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .kicker::before { content: ""; width: 24px; height: 2px; background: currentColor; }
+    .section-title {
+      margin: 16px 0 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 5.8vw, 5.6rem);
+      line-height: .96;
+      letter-spacing: -.045em;
+      font-weight: 500;
+    }
+    .lead { color: var(--muted); font-size: 1.1rem; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 249, 241, .9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(60, 16, 27, .08);
+    }
+    .nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; line-height: 1.05; letter-spacing: -.03em; }
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      overflow: hidden;
+      border-radius: 17px;
+      background: #f3f6f7;
+      box-shadow: 0 11px 28px rgba(217, 40, 62, .18);
+      flex: 0 0 auto;
+    }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.65); }
+    .brand small { display: block; margin-top: 4px; color: var(--muted); font-size: .67rem; font-weight: 700; letter-spacing: .01em; }
+    .nav-links { display: flex; align-items: center; gap: 27px; color: #4c5957; font-size: .9rem; font-weight: 800; }
+    .nav-links a:hover { color: var(--red); }
+    .btn {
+      min-height: 50px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-weight: 900;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: white; background: linear-gradient(135deg, var(--red), var(--coral)); box-shadow: 0 14px 30px rgba(217, 40, 62, .25); }
+    .btn-light { background: white; color: var(--wine); box-shadow: 0 12px 28px rgba(60, 16, 27, .12); }
+    .menu-btn { display: none; width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+
+    .hero { padding: 54px 0 80px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      left: -330px;
+      top: -280px;
+      border-radius: 50%;
+      background: rgba(241, 102, 104, .1);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 70px; align-items: center; }
+    .hero-copy { position: relative; z-index: 2; padding: 40px 0; }
+    .hero h1 {
+      margin: 22px 0 24px;
+      max-width: 720px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.5rem, 7.1vw, 7rem);
+      line-height: .86;
+      letter-spacing: -.065em;
+      font-weight: 500;
+    }
+    .hero h1 em { color: var(--red); font-style: italic; }
+    .hero-copy > p { max-width: 620px; margin: 0 0 32px; color: var(--muted); font-size: 1.16rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-visual { position: relative; min-height: 660px; }
+    .hero-photo {
+      position: absolute;
+      inset: 0 0 0 10%;
+      overflow: hidden;
+      border-radius: 160px 34px 160px 34px;
+      box-shadow: var(--shadow);
+      background: var(--wine);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 53% center; }
+    .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(60,16,27,.35)); }
+    .hero-badge {
+      position: absolute;
+      left: 0;
+      bottom: 50px;
+      width: 210px;
+      padding: 22px;
+      border-radius: 24px;
+      color: white;
+      background: var(--teal);
+      box-shadow: 0 20px 44px rgba(39, 110, 99, .25);
+    }
+    .hero-badge strong { display: block; font-family: Georgia, serif; font-size: 2rem; line-height: 1; }
+    .hero-badge span { display: block; margin-top: 8px; font-size: .82rem; opacity: .82; }
+    .hero-heart { position: absolute; right: -18px; top: 58px; width: 88px; height: 88px; display: grid; place-items: center; border-radius: 28px; color: var(--red); background: white; box-shadow: var(--shadow); font-size: 2.25rem; transform: rotate(7deg); }
+
+    .about { background: white; }
+    .about-grid { display: grid; grid-template-columns: .78fr 1.22fr; gap: 80px; align-items: start; }
+    .about-mark { position: sticky; top: 130px; }
+    .about-number { color: rgba(217, 40, 62, .13); font: 500 9rem/.8 Georgia, serif; }
+    .about-copy { columns: 2; column-gap: 42px; color: #52605d; font-size: 1.03rem; }
+    .about-copy p { margin: 0; }
+    .about-quote { margin-top: 38px; padding: 28px 30px; border-left: 4px solid var(--red); background: var(--cream); color: var(--wine); font-family: Georgia, serif; font-size: 1.45rem; line-height: 1.35; }
+
+    .goals { position: relative; overflow: hidden; }
+    .goals::after { content: ""; position: absolute; right: -160px; top: 80px; width: 360px; height: 360px; border: 74px solid rgba(39,110,99,.07); border-radius: 50%; }
+    .goals-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 46px; }
+    .goals-head .section-title { max-width: 700px; margin-bottom: 0; }
+    .goals-head p { max-width: 400px; margin: 0 0 6px; color: var(--muted); }
+    .goal-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .goal-card { padding: 36px; min-height: 280px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.74); box-shadow: 0 18px 55px rgba(72,25,35,.06); }
+    .goal-card:nth-child(2), .goal-card:nth-child(3) { background: var(--wine); color: white; }
+    .goal-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; color: white; background: var(--red); font-size: 1.4rem; }
+    .goal-card:nth-child(2) .goal-icon, .goal-card:nth-child(3) .goal-icon { color: var(--wine); background: var(--gold); }
+    .goal-card h3 { margin: 46px 0 12px; font: 500 1.85rem/1.08 Georgia, serif; }
+    .goal-card p { margin: 0; color: var(--muted); }
+    .goal-card:nth-child(2) p, .goal-card:nth-child(3) p { color: rgba(255,255,255,.68); }
+
+    .story { color: white; background: var(--wine-deep); }
+    .story-head { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: end; margin-bottom: 60px; }
+    .story-head .section-title { margin-bottom: 0; }
+    .story-head p { color: rgba(255,255,255,.65); margin: 0; }
+    .story .kicker { color: #ff9a9c; }
+    .story-feature { display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; margin-bottom: 26px; }
+    .story-photo { min-height: 580px; border-radius: var(--radius); overflow: hidden; background: #18070c; }
+    .story-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .story-photo.collage img { object-fit: contain; }
+    .story-chapter { padding: 48px; border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); background: rgba(255,255,255,.055); }
+    .story-chapter .date { color: #ff9a9c; font-size: .75rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .story-chapter h3 { margin: 15px 0 22px; font: 500 clamp(2rem, 4vw, 3.6rem)/1 Georgia, serif; }
+    .story-chapter p { color: rgba(255,255,255,.7); }
+    .story-chapter p:last-child { margin-bottom: 0; }
+    .story-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .story-card { padding: 32px; border-top: 1px solid rgba(255,255,255,.28); }
+    .story-card span { color: #ff9a9c; font-size: .72rem; font-weight: 900; letter-spacing: .13em; }
+    .story-card h3 { margin: 14px 0; font: 500 1.55rem/1.12 Georgia, serif; }
+    .story-card p { margin: 0; color: rgba(255,255,255,.62); font-size: .94rem; }
+
+    .solution { background: linear-gradient(135deg, #d92b42, #7b1b30 60%, #3d111c); color: white; overflow: hidden; position: relative; }
+    .solution::before { content: ""; position: absolute; right: -180px; bottom: -240px; width: 560px; height: 560px; border: 110px solid rgba(255,255,255,.07); border-radius: 50%; }
+    .solution-grid { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 70px; align-items: center; }
+    .solution .kicker { color: #ffd2d0; }
+    .solution .section-title { max-width: 760px; }
+    .solution p { max-width: 720px; color: rgba(255,255,255,.76); font-size: 1.08rem; }
+    .donation-card { padding: 38px; border: 1px solid rgba(255,255,255,.22); border-radius: var(--radius); background: rgba(255,255,255,.12); backdrop-filter: blur(12px); }
+    .donation-card strong { display: block; margin-bottom: 12px; font: 500 2rem Georgia, serif; }
+    .donation-card p { margin: 0 0 24px; font-size: .95rem; }
+    .donation-card .btn { width: 100%; }
+
+    footer { padding: 60px 0 30px; color: rgba(255,255,255,.68); background: #250b13; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr .7fr .7fr; gap: 60px; }
+    footer .brand { color: white; }
+    footer .brand small { color: rgba(255,255,255,.5); }
+    footer p { max-width: 430px; }
+    .footer-title { margin-bottom: 16px; color: white; font-weight: 900; }
+    .footer-links { display: grid; gap: 10px; }
+    .footer-links a:hover { color: white; }
+    .footer-bottom { margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); font-size: .82rem; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; position: absolute; top: 76px; left: 20px; right: 20px; padding: 22px; border-radius: 22px; background: white; box-shadow: var(--shadow); }
+      .nav-links.open { display: grid; }
+      .menu-btn { display: grid; place-items: center; }
+      .hero-grid, .about-grid, .story-head, .story-feature, .solution-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 580px; }
+      .hero-photo { inset: 0 0 0 6%; }
+      .about-mark { position: relative; top: auto; }
+      .about-grid { gap: 34px; }
+      .story-feature { gap: 18px; }
+      .story-flow { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 660px) {
+      .container { width: min(calc(100% - 26px), var(--max)); }
+      .section { padding: 78px 0; }
+      .brand-logo { width: 46px; height: 46px; }
+      .hero { padding-top: 32px; }
+      .hero-grid { gap: 25px; }
+      .hero-copy { padding-top: 20px; }
+      .hero h1 { font-size: clamp(3.3rem, 16vw, 5rem); }
+      .hero-visual { min-height: 500px; }
+      .hero-photo { inset: 0 0 0 0; border-radius: 90px 28px 90px 28px; }
+      .hero-badge { left: 12px; bottom: 18px; width: 185px; padding: 18px; }
+      .hero-heart { right: 4px; top: 26px; width: 68px; height: 68px; border-radius: 22px; }
+      .about-copy { columns: 1; }
+      .goals-head { display: block; }
+      .goals-head p { margin-top: 22px; }
+      .goal-grid { grid-template-columns: 1fr; }
+      .goal-card { min-height: auto; }
+      .story-photo { min-height: 420px; }
+      .story-chapter { padding: 30px 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-grid > :first-child { grid-column: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Annette's Heart Foundation home">
+        <span class="brand-logo"><img src="annettes-heart-logo.png" alt="" /></span>
+        <span>Annette's Heart<small>Foundation for Children</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#about">About Us</a>
+        <a href="#goals">Goals</a>
+        <a href="#story">Annette's Story</a>
+        <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/4N3DRP4LU2BB6" target="_blank" rel="noopener noreferrer">Donate</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="kicker">Open hearts. Brighter futures.</div>
+          <h1>Be the <em>difference</em> a child needs.</h1>
+          <p>We empower heart families throughout Sierra Leone and West Africa with emotional, educational, and financial support—helping children receive care before preventable health deterioration.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/4N3DRP4LU2BB6" target="_blank" rel="noopener noreferrer">Make a difference <span aria-hidden="true">→</span></a>
+            <a class="btn btn-light" href="#story">Read Annette's story</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="hero-photo"><img src="stethoscope-heart-hero.png" alt="A stethoscope listening to a human heart" /></div>
+          <div class="hero-badge"><strong>Every child</strong><span>deserves timely heart care and a chance to thrive.</span></div>
+          <div class="hero-heart" aria-hidden="true">♥</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="about-mark reveal">
+          <div class="kicker">About us</div>
+          <h2 class="section-title">Care that reaches beyond borders.</h2>
+          <div class="about-number" aria-hidden="true">01</div>
+        </div>
+        <div class="reveal">
+          <div class="about-copy">
+            <p>Annette’s Heart Foundation for Children is a non-profit organization committed to making a positive difference in the lives of children with heart conditions throughout Sierra Leone and West Africa. We empower heart families through emotional, educational, and financial support to improve the quality of life for children. We actively reach those with limited access to care with open hearts to change their circumstances for the better. Our aim is to focus on underprivileged areas of West Africa to diagnose and treat children with cardiovascular problems early to avoid preventable health deterioration. We challenge you to be the difference the world needs and join our initiative to make a lasting imprint in the lives of others.</p>
+          </div>
+          <div class="about-quote">“Open hearts can change a child’s circumstances—and the course of a lifetime.”</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section goals" id="goals">
+      <div class="container">
+        <div class="goals-head reveal">
+          <div><div class="kicker">Our goals</div><h2 class="section-title">A practical path to healthier hearts.</h2></div>
+          <p>From joyful childhood experiences to regional medical infrastructure, our goals support the whole child and family.</p>
+        </div>
+        <div class="goal-grid">
+          <article class="goal-card reveal"><div class="goal-icon">☀</div><h3>A carefree camp experience</h3><p>Provide a joyful, confidence-building camp experience for children living with heart conditions.</p></article>
+          <article class="goal-card reveal"><div class="goal-icon">✦</div><h3>Pediatric heart education</h3><p>Educate healthcare professionals and the general public on pediatric cardiology issues.</p></article>
+          <article class="goal-card reveal"><div class="goal-icon">♡</div><h3>Support for families</h3><p>Lend support as families navigate the emotional and financial toll exacted by a child’s heart problem.</p></article>
+          <article class="goal-card reveal"><div class="goal-icon">＋</div><h3>A heart hospital</h3><p>Build a heart hospital and provide the equipment needed to diagnose heart problems in Sierra Leone and West Africa.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section story" id="story">
+      <div class="container">
+        <div class="story-head reveal">
+          <div><div class="kicker">Annette's story</div><h2 class="section-title">One life became a lifelong purpose.</h2></div>
+          <p>Annette’s journey shows what determined advocacy, generous support, and timely treatment can make possible—and why no child should have to wait for life-saving care.</p>
+        </div>
+
+        <div class="story-feature">
+          <div class="story-photo reveal"><img src="annette-hospital-care.jpeg" alt="Annette receiving care in a hospital bed" /></div>
+          <article class="story-chapter reveal">
+            <div class="date">Sierra Leone · Childhood</div>
+            <h3>A diagnosis at age eight</h3>
+            <p>Annette Sam was born in Sierra Leone with a congenital heart disease that was not diagnosed until she was 8 years old. She urgently needed heart surgery, but Sierra Leone did not have the facilities or medical technology to provide this level of operation. The surgery needed to be done overseas, but her family did not have the resources to pursue that treatment.</p>
+            <p>Her parents, desperately seeking help and guidance to save their daughter's life, reached out to PIKIN BIZNESS, a charity organization that assisted families with such problems. Due to the high volume of children with similar burdens, Annette was 150th on the waiting list for sponsorship. For Annette, waiting wasn’t an option—the surgery needed to be done immediately.</p>
+          </article>
+        </div>
+
+        <div class="story-feature">
+          <article class="story-chapter reveal">
+            <div class="date">September 9, 2007 · Germany</div>
+            <h3>A network of care opened a door</h3>
+            <p>Annette’s father, Rev. Brickson Sam, a Baptist minister, had connections in Europe and the United States through his working relationship with the Baptist World Alliance. He contacted his networks and secured the funds needed for Annette’s heart surgery, including travel costs for Annette and her mother.</p>
+            <p>On September 9, 2007, they flew to Frankfurt, Germany—the first case to be referred to Germany. Hosted by a member of a local Baptist church, Annette underwent surgery, which was a complete success. She recovered physically from the heart disease and the surgery itself.</p>
+            <p>Unfortunately, Annette has significant intellectual impairment, most likely a side effect of a long-term, undiagnosed and untreated heart condition during pivotal developmental years.</p>
+          </article>
+          <div class="story-photo collage reveal"><img src="annette-after-surgery-2007.jpeg" alt="A collection of photographs showing Annette recovering after surgery in Germany in 2007" /></div>
+        </div>
+
+        <div class="story-flow">
+          <article class="story-card reveal"><span>2009 · CHARLOTTE</span><h3>A new home and new challenges</h3><p>Annette and her family immigrated to the United States and settled in Charlotte, North Carolina. She attended public school and continuously struggled with learning difficulties.</p></article>
+          <article class="story-card reveal"><span>INDIVIDUAL SUPPORT</span><h3>Learning shaped around her abilities</h3><p>At age 12, Annette was still in fourth grade. Her school developed an individualized curriculum based on her abilities, talents, and skills.</p></article>
+          <article class="story-card reveal"><span>2019 & BEYOND</span><h3>Perseverance into a fulfilling life</h3><p>Annette graduated from high school at age 20 and attended cosmetology school. Generous support helped turn her life around, and she is thriving in Charlotte today.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section solution" id="donate">
+      <div class="container solution-grid">
+        <div class="reveal">
+          <div class="kicker">Be part of the solution</div>
+          <h2 class="section-title">Your gift makes care possible.</h2>
+          <p>Every donation is truly valuable, and we understand that our donors are contributing hard-earned money to a great cause. Upon receiving a donation, we reach out to provide information on what your gift will be used for. We want you to know how your generosity has impacted the lives of many. We urge you to donate what you can. Any amount is appreciated and makes a significant difference.</p>
+        </div>
+        <aside class="donation-card reveal">
+          <strong>Give with confidence.</strong>
+          <p>Your contribution supports practical, family-centered heart care and helps children reach diagnosis and treatment sooner.</p>
+          <a class="btn btn-light" href="https://www.paypal.com/ncp/payment/4N3DRP4LU2BB6" target="_blank" rel="noopener noreferrer">Donate <span aria-hidden="true">→</span></a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="#top"><span class="brand-logo"><img src="annettes-heart-logo.png" alt="" /></span><span>Annette's Heart<small>Foundation for Children</small></span></a>
+          <p>Supporting children with heart conditions and their families throughout Sierra Leone and West Africa.</p>
+        </div>
+        <div><div class="footer-title">Explore</div><div class="footer-links"><a href="#about">About Us</a><a href="#goals">Goals</a><a href="#story">Annette's Story</a></div></div>
+        <div><div class="footer-title">Connect</div><div class="footer-links"><a href="https://www.paypal.com/ncp/payment/4N3DRP4LU2BB6" target="_blank" rel="noopener noreferrer">Donate</a><a href="mailto:ahfc@annettesheartfoundation.org">ahfc@annettesheartfoundation.org</a></div></div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> Annette's Heart Foundation for Children. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); reveal.unobserve(entry.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+  </script>
+</body>
+</html>
